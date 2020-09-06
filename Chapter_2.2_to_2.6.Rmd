@@ -624,7 +624,7 @@ By now you should know that if you type:
 country <- c(italy, canada, egypt)
 ```
 
-you receive an error because the variables `italy`, `cananda`, and `egypt`, are not defined. If we do not sue the quotes, R looks for variables with those names and returns an error.
+you receive an error because the variables `italy`, `canada`, and `egypt`, are not defined. If we do not sue the quotes, R looks for variables with those names and returns an error.
 
 ### 2.6.2 Names
 
