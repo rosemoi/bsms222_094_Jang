@@ -613,7 +613,7 @@ country <- c("italy", "canada", "egypt")
 In R you can also use single quotes:
 
 ```{r}
-country <- c('italy','cananda', 'egypt')
+country <- c('italy','canada', 'egypt')
 ```
 
 But be careful not to confuse the single quote ' with the back quote `.
@@ -668,7 +668,7 @@ We can also assign names using the `names` functions:
 
 codes <- c(380, 124, 818)
 
-country <- c("italy", "cananda", "egypt")
+country <- c("italy", "canada", "egypt")
 
 names(codes) <- country
 
