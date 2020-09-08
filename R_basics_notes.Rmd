@@ -1392,3 +1392,4 @@ hist(population_in_millions)
 ```{r}
 boxplot(population_in_millions, data=murders)
 ```
+
