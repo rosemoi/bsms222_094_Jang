@@ -1,0 +1,97 @@
+---
+title: "Genetic Links Between Autism and Suicidal Behavior"
+output: html_notebook
+---
+
+It was out of simple curiosity to explore the links between Autistic Disorder and Suicidal behaviors.
+
+In order to do so, first thing to be done was to 'tyding' the data.
+
+
+```{r}
+library(tidyverse)
+library("readxl")
+setwd("D:/RStudio/bsms222/bsms222_094_Jang/autism")
+d1 = read_xlsx('aav8130_Data-S1.xlsx')
+d2 = read_xlsx('aav8130_Data-S2.xlsx')
+d3 = read_xls('aav8130_Data-S3.xls')
+d4 = read_xls('aav8130_Data-S4.xls')
+d5 = read_xlsx('aav8130_Data-S5.xlsx')
+
+d1$`Cause of death`
+
+d1 %>%
+  filter(`Cause of death` %in% c("Suicide, Hanging" , "Suicide, hanging"))
+d2 %>%
+  filter(individual %in% c('5294','5841', '5879', '4341', '5554'))
+
+```
+I have came down on to possible individuals who might have shown and succeeded in suicides. And therefore continue to explore cell cluster by these individuals.
+
+```{r}
+ScD <- d2 %>% filter(individual %in% c('5294','5841', '5879', '4341', '5554')) %>%
+  select(individual, cluster) %>% arrange(individual) %>%
+  distinct()
+SCD <- split(ScD$cluster, ScD$individual)
+
+SCD
+```
+For each individuals, It was sorted into specific cell clusters. So now, See the data in visualization form for the number of genes per cluster.
+
+```{r}
+SCD2 <- d2 %>% 
+  filter(individual %in% c('5294','5841', '5879', '4341', '5554'))%>%
+  select(individual, cluster, genes) %>%
+  arrange(individual) %>%
+  distinct()
+
+
+SCD2 %>% ggplot( mapping = aes(x = cluster, y = genes)) + 
+  geom_boxplot() +
+  coord_flip()
+```
+
+Also, the distribution of genes in cluster for each individual.
+
+```{r}
+SCD2 %>% ggplot( mapping = aes(x = as.character(individual), y = cluster, size = genes), ) + 
+  geom_point()
+```
+
+
+## Further discussion 
+
+The relative general data that will be compared to our "single-cell method" generated data is: 
+
+```
+Coon, H., Darlington, T.M., DiBlasi, E. et al. Genome-wide significant regions in 43 Utah high-risk families implicate multiple genes involved in risk for completed suicide. Mol Psychiatry 25, 3077–3090 (2020). http://doi.org.ssl.oca.korea.ac.kr/10.1038/s41380-018-0282-3
+```
+
+
+```{r}
+UTAH <- read_xlsx('Utah_table3.xlsx')
+UTAH <- UTAH %>%
+  select(`Gene name`, `Suicide associations; other neuropsychiatric associationsa`)
+
+UTAH
+
+Gene <- UTAH %>% filter(`Gene name` %in% c('CDK5', 'INPP1'))
+
+Gene
+```
+
+Since the advancement of "single cell" method, further genetic link study in Autism and Suicide can be done and these are possible genes from the research we did portfolio on.
+
+```{r}
+aa <- d4 %>%
+  filter(`Cell type` %in% c("AST-PP", "Oligodendrocytes", "L5/6", "L2/3", "AST-FB", "Neu-NRGN-II", "IN-VIP", "Microglia", "L5/6-CC", "Neu-NRGN-I", "OPC", "IN-SST", "Neu-mat", "Endothelial", "IN-PV", "L4", "IN-SV2C")) %>% select('Gene name')
+
+aa
+```
+
+
+
+
+
+
+
